@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Champaran Florals</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init('YOUR_USER_ID'); // Replace 'YOUR_USER_ID' with your EmailJS user ID
+      })();
+
+      function handleSubmit(event) {
+        event.preventDefault();
+        const templateParams = {
+          from_name: document.getElementById('name').value,
+          from_email: document.getElementById('email').value,
+          message: document.getElementById('message').value
+        };
+
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+          .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+          }, function(error) {
+            console.log('FAILED...', error);
+          });
+      }
+    </script>
 </head>
 <body>
-    <h1>Contact Us</h1>
-    <p>Phone: +91 9876543210, +91 9876543211</p>
-    <p>Email: info@champaranflorals.com</p>
-    <p>Address: Main Office: Bettiah, West Champaran, Bihar. Branch: Motihari, East Champaran, Bihar</p>
+    <h1>Welcome to Champaran Florals</h1>
+    <p>Contact us at: +91 98185 20826</p>
+    <p>Email: sk.mohd.azhar@gmail.com</p>
+    <form onsubmit="handleSubmit(event)">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
 </body>
 </html>
