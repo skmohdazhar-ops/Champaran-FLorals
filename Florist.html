@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champaran Florals - Premium Flower & Decoration Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --sage: #9CAF88;
+            --sage-dark: #7A8F6A;
+            --blush: #F4E7E7;
+            --terracotta: #C17C53;
+            --charcoal: #2C3E33;
+            --cream: #FAF9F6;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .floral-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-11.046 8.954-20 20-20s20 8.954 20 20-8.954 20-20 20-20-8.954-20-20z' fill='%239CAF88' fill-opacity='0.05'/%3E%3C/svg%3E");
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .floating-leaf {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(156, 175, 136, 0.4);
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .service-card:hover .service-img {
+            transform: scale(1.1);
+        }
+        
+        .service-img {
+            transition: transform 0.6s ease;
+        }
+        
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--sage);
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.2);
+        }
+        
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+        
+        .nav-visible {
+            transform: translateY(0);
+        }
+        
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+        
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .masonry-grid { column-count: 2; }
+        }
+        
+        @media (min-width: 1024px) {
+            .masonry-grid { column-count: 3; }
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(244, 231, 231, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
+        }
+        
+        .location-badge {
+            background: linear-gradient(135deg, var(--terracotta) 0%, #A65D3A 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 nav-hidden bg-white/80 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="flower-2" class="w-8 h-8 text-[#7A8F6A]"></i>
+                    <span class="text-2xl font-bold text-[#2C3E33]" style="font-family: 'Playfair Display', serif;">Champaran Florals</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-stone-600 hover:text-[#7A8F6A] transition-colors">Services</a>
+                    <a href="#gallery" class="text-stone-600 hover:text-[#7A8F6A] transition-colors">Gallery</a>
+                    <a href="#about" class="text-stone-600 hover:text-[#7A8F6A] transition-colors">About</a>
+                    <a href="#contact" class="px-6 py-2 bg-[#9CAF88] text-white rounded-full hover:bg-[#7A8F6A] transition-all">Book Now</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <i data-lucide="menu" class="w-6 h-6 text-[#2C3E33]"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-200">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#services" class="block px-3 py-2 text-stone-600 hover:text-[#7A8F6A]">Services</a>
+                <a href="#gallery" class="block px-3 py-2 text-stone-600 hover:text-[#7A8F6A]">Gallery</a>
+                <a href="#about" class="block px-3 py-2 text-stone-600 hover:text-[#7A8F6A]">About</a>
+                <a href="#contact" class="block px-3 py-2 text-[#7A8F6A] font-semibold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden floral-pattern">
+        <!-- Floating Decorations -->
+        <div class="floating-leaf top-20 left-10 text-[#9CAF88]">
+            <i data-lucide="leaf" class="w-24 h-24"></i>
+        </div>
+        <div class="floating-leaf bottom-40 right-20 text-[#C17C53]" style="animation-delay: 5s;">
+            <i data-lucide="flower" class="w-32 h-32"></i>
+        </div>
+        <div class="floating-leaf top-40 right-1/4 text-[#9CAF88]" style="animation-delay: 10s;">
+            <i data-lucide="rose" class="w-16 h-16"></i>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="hero-content opacity-0 translate-y-10">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#9CAF88]/30 mb-8">
+                    <span class="location-badge text-white text-xs px-3 py-1 rounded-full">Serving West & East Champaran</span>
+                    <span class="text-stone-600 text-sm">Bihar, India</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-[#2C3E33] mb-6 leading-tight">
+                    Bringing Nature's <br>
+                    <span class="text-[#9CAF88] italic">Poetry</span> to Your Events
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-stone-600 max-w-2xl mx-auto mb-10 font-light">
+                    Premium floral arrangements and artificial decorations for weddings, corporate events, and celebrations across Champaran districts.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#contact" class="btn-primary px-8 py-4 rounded-full text-white font-semibold text-lg flex items-center space-x-2 group">
+                        <span>Get Free Quote</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#gallery" class="px-8 py-4 rounded-full border-2 border-[#2C3E33] text-[#2C3E33] font-semibold text-lg hover:bg-[#2C3E33] hover:text-white transition-all">
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto opacity-0 translate-y-10" id="hero-stats">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-[#7A8F6A]" style="font-family: 'Playfair Display', serif;">500+</div>
+                    <div class="text-stone-600 mt-2">Events Decorated</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-[#7A8F6A]" style="font-family: 'Playfair Display', serif;">10+</div>
+                    <div class="text-stone-600 mt-2">Years Experience</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-[#7A8F6A]" style="font-family: 'Playfair Display', serif;">50+</div>
+                    <div class="text-stone-600 mt-2">Flower Varieties</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-[#7A8F6A]" style="font-family: 'Playfair Display', serif;">2</div>
+                    <div class="text-stone-600 mt-2">Districts Served</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-[#9CAF88]"></i>
+        </div>
+    </section>
+
+    <!-- Marquee Section -->
+    <div class="bg-[#2C3E33] text-white py-4 overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-content text-lg font-light tracking-widest">
+                <span class="mx-8">WEDDING DECORATIONS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">ARTIFICIAL FLOWER ARRANGEMENTS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">MANDAP DECORATIONS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">BRIDAL BOUQUETS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">CORPORATE EVENTS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">BIRTHDAY PARTIES</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">WEDDING DECORATIONS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">ARTIFICIAL FLOWER ARRANGEMENTS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">MANDAP DECORATIONS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">BRIDAL BOUQUETS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">CORPORATE EVENTS</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+                <span class="mx-8">BIRTHDAY PARTIES</span>
+                <span class="mx-8 text-[#9CAF88]">•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-section">
+                <span class="text-[#C17C53] font-semibold tracking-wider uppercase text-sm">Our Expertise</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-[#2C3E33] mt-3 mb-4">Floral Services</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">From intimate gatherings to grand celebrations, we craft bespoke floral experiences that transform spaces into memories.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('wedding')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80" alt="Wedding Decoration" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Wedding Decorations</h3>
+                    <p class="text-stone-600">Complete mandap, stage, and venue floral arrangements using fresh and artificial flowers tailored to your theme.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('artificial')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1563241527-3004b7be025f?w=800&q=80" alt="Artificial Flowers" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Artificial Arrangements</h3>
+                    <p class="text-stone-600">Long-lasting, realistic silk and premium artificial flowers perfect for permanent installations and reusable event decor.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('bridal')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1556217477-d325251ece38?w=800&q=80" alt="Bridal Bouquet" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Bridal Bouquets</h3>
+                    <p class="text-stone-600">Handcrafted bridal bouquets, boutonnieres, and corsages designed to complement your wedding attire perfectly.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('corporate')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Corporate Events" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Corporate Events</h3>
+                    <p class="text-stone-600">Professional floral arrangements for conferences, product launches, office openings, and business celebrations.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('birthday')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80" alt="Birthday Party" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Birthday Celebrations</h3>
+                    <p class="text-stone-600">Themed floral backdrops, table centerpieces, and venue decoration for milestone birthdays and parties.</p>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card group cursor-pointer" onclick="selectService('religious')">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 h-80">
+                        <img src="https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=800&q=80" alt="Religious Functions" class="service-img w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2C3E33]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white font-semibold flex items-center">Book This Service <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Religious Functions</h3>
+                    <p class="text-stone-600">Traditional flower decorations for puja ceremonies, festivals, thread ceremonies, and religious gatherings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-[#F4E7E7]/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-section">
+                <span class="text-[#C17C53] font-semibold tracking-wider uppercase text-sm">Portfolio</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-[#2C3E33] mt-3 mb-4">Recent Creations</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">A glimpse into our floral artistry across West and East Champaran.</p>
+            </div>
+
+            <div class="masonry-grid">
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Wedding Mandap" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80" alt="Centerpiece" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?w=600&q=80" alt="Bridal Entry" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1507504031981-723e9edd3e66?w=600&q=80" alt="Artificial Wall" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80" alt="Stage Decoration" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative group overflow-hidden rounded-xl cursor-pointer" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="Venue Setup" class="w-full rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="w-8 h-8 text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative reveal-section">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#9CAF88]/20 rounded-full"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#C17C53]/20 rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=800&q=80" alt="Florist at work" class="relative rounded-2xl shadow-2xl w-full">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl max-w-xs">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-[#9CAF88] rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-[#2C3E33]">Trusted Expert</div>
+                                <div class="text-sm text-stone-600">10+ years in Champaran</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-section">
+                    <span class="text-[#C17C53] font-semibold tracking-wider uppercase text-sm">About Us</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#2C3E33] mt-3 mb-6">Rooted in Champaran, Blooming with Passion</h2>
+                    <p class="text-stone-600 text-lg mb-6 leading-relaxed">
+                        We are a dedicated team of floral artists serving the beautiful districts of West Champaran and East Champaran in Bihar. From Bettiah to Motihari and surrounding areas, we bring creativity and elegance to every celebration.
+                    </p>
+                    <p class="text-stone-600 text-lg mb-8 leading-relaxed">
+                        Whether you desire fresh seasonal flowers or high-quality artificial arrangements that last forever, we customize every detail to match your vision and budget. Our expertise spans traditional Indian wedding decor to modern minimalist corporate setups.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-[#9CAF88] flex-shrink-0 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Fresh & Artificial</div>
+                                <div class="text-sm text-stone-600">Both options available</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-[#9CAF88] flex-shrink-0 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">All Functions</div>
+                                <div class="text-sm text-stone-600">Weddings to corporate</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-[#9CAF88] flex-shrink-0 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Local Expertise</div>
+                                <div class="text-sm text-stone-600">Deep knowledge of venues</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-[#9CAF88] flex-shrink-0 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Custom Designs</div>
+                                <div class="text-sm text-stone-600">Tailored to your theme</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="py-20 bg-[#2C3E33] text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 20% 50%, #9CAF88 0%, transparent 50%), radial-gradient(circle at 80% 80%, #C17C53 0%, transparent 50%);"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Service Areas</h2>
+                <p class="text-white/80">Proudly serving all towns and villages in:</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i data-lucide="map-pin" class="w-6 h-6 text-[#9CAF88]"></i>
+                        <h3 class="text-2xl font-bold">West Champaran</h3>
+                    </div>
+                    <ul class="space-y-2 text-white/80">
+                        <li>• Bettiah (Headquarters)</li>
+                        <li>• Bagaha</li>
+                        <li>• Chanpatia</li>
+                        <li>• Narkatiaganj</li>
+                        <li>• Lauriya</li>
+                        <li>• Ramnagar</li>
+                        <li>• And surrounding areas</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i data-lucide="map-pin" class="w-6 h-6 text-[#C17C53]"></i>
+                        <h3 class="text-2xl font-bold">East Champaran</h3>
+                    </div>
+                    <ul class="space-y-2 text-white/80">
+                        <li>• Motihari (Headquarters)</li>
+                        <li>• Raxaul</li>
+                        <li>• Sugauli</li>
+                        <li>• Areraj</li>
+                        <li>• Chakia</li>
+                        <li>• Dhaka</li>
+                        <li>• And surrounding areas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-[#F4E7E7]/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-section">
+                <span class="text-[#C17C53] font-semibold tracking-wider uppercase text-sm">Testimonials</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-[#2C3E33] mt-3 mb-4">What Clients Say</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-2xl border border-[#9CAF88]/20">
+                    <div class="flex text-[#C17C53] mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-stone-700 mb-6 italic">"The artificial flower arrangements for my daughter's wedding in Bettiah were stunning. Everyone thought they were real! The team was professional and delivered on time."</p>
+                    <div class="font-semibold text-[#2C3E33]">- Priya Sharma</div>
+                    <div class="text-sm text-stone-600">Bettiah, West Champaran</div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl border border-[#9CAF88]/20">
+                    <div class="flex text-[#C17C53] mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-stone-700 mb-6 italic">"We hired them for our corporate event in Motihari. The stage decoration with fresh lilies and orchids was elegant and sophisticated. Highly recommended!"</p>
+                    <div class="font-semibold text-[#2C3E33]">- Rajesh Kumar</div>
+                    <div class="text-sm text-stone-600">Motihari, East Champaran</div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl border border-[#9CAF88]/20">
+                    <div class="flex text-[#C17C53] mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-stone-700 mb-6 italic">"Best florist in Champaran! They decorated our home for a religious function with marigolds and roses. The fragrance filled the entire neighborhood."</p>
+                    <div class="font-semibold text-[#2C3E33]">- Anita Devi</div>
+                    <div class="text-sm text-stone-600">Bagaha, West Champaran</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div class="reveal-section">
+                    <span class="text-[#C17C53] font-semibold tracking-wider uppercase text-sm">Get in Touch</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#2C3E33] mt-3 mb-6">Let's Create Something Beautiful</h2>
+                    <p class="text-stone-600 text-lg mb-8">
+                        Ready to transform your event? Fill out the form and we'll get back to you within 24 hours with a custom quote.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-[#9CAF88]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-[#9CAF88]"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Phone</div>
+                                <div class="text-stone-600">+91 98765 43210</div>
+                                <div class="text-stone-600">+91 98765 43211</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-[#9CAF88]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="mail" class="w-6 h-6 text-[#9CAF88]"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Email</div>
+                                <div class="text-stone-600">champaranflorals@gmail.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-[#9CAF88]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-[#9CAF88]"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-[#2C3E33]">Main Office</div>
+                                <div class="text-stone-600">Near Gandhi Chowk, Bettiah<br>West Champaran, Bihar 845438</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-[#2C3E33] rounded-full flex items-center justify-center text-white hover:bg-[#9CAF88] transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#2C3E33] rounded-full flex items-center justify-center text-white hover:bg-[#9CAF88] transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#2C3E33] rounded-full flex items-center justify-center text-white hover:bg-[#9CAF88] transition-colors">
+                            <i data-lucide="whatsapp" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-[#F4E7E7]/30 p-8 rounded-3xl border border-[#9CAF88]/20 reveal-section">
+                    <form id="bookingForm" class="space-y-6" onsubmit="handleSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Your Name</label>
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Phone Number</label>
+                                <input type="tel" required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all" placeholder="+91 98765 43210">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Event Type</label>
+                            <select id="eventType" required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all">
+                                <option value="">Select event type</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="reception">Reception</option>
+                                <option value="birthday">Birthday Party</option>
+                                <option value="corporate">Corporate Event</option>
+                                <option value="religious">Religious Function</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Service Required</label>
+                            <select id="serviceType" required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all">
+                                <option value="">Select service</option>
+                                <option value="fresh">Fresh Flower Decoration</option>
+                                <option value="artificial">Artificial Flower Decoration</option>
+                                <option value="both">Both Fresh & Artificial</option>
+                                <option value="bridal">Bridal Bouquet Only</option>
+                                <option value="rental">Rental Decoration Items</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Event Date</label>
+                                <input type="date" required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Location/District</label>
+                                <select required class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all">
+                                    <option value="">Select location</option>
+                                    <option value="bettiah">Bettiah (West Champaran)</option>
+                                    <option value="bagaha">Bagaha (West Champaran)</option>
+                                    <option value="motihari">Motihari (East Champaran)</option>
+                                    <option value="raxaul">Raxaul (East Champaran)</option>
+                                    <option value="other">Other Area</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#2C3E33] mb-2">Message / Special Requirements</label>
+                            <textarea rows="4" class="form-input w-full px-4 py-3 rounded-xl border border-stone-300 bg-white transition-all" placeholder="Tell us about your vision, color preferences, budget range, etc."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary py-4 rounded-xl text-white font-semibold text-lg flex items-center justify-center space-x-2 group">
+                            <span>Send Booking Request</span>
+                            <i data-lucide="send" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="successMessage" class="hidden text-center py-12">
+                        <div class="w-20 h-20 bg-[#9CAF88] rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="check" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#2C3E33] mb-2">Request Sent!</h3>
+                        <p class="text-stone-600">We'll contact you within 24 hours to discuss your requirements.</p>
+                        <button onclick="resetForm()" class="mt-6 text-[#9CAF88] font-semibold hover:underline">Send another request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2C3E33] text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-lucide="flower-2" class="w-8 h-8 text-[#9CAF88]"></i>
+                        <span class="text-2xl font-bold" style="font-family: 'Playfair Display', serif;">Champaran Florals</span>
+                    </div>
+                    <p class="text-white/70 max-w-sm">
+                        Transforming events into unforgettable experiences through the art of floral design. Serving West & East Champaran with passion since 2014.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-white/70">
+                        <li><a href="#services" class="hover:text-[#9CAF88] transition-colors">Services</a></li>
+                        <li><a href="#gallery" class="hover:text-[#9CAF88] transition-colors">Gallery</a></li>
+                        <li><a href="#about" class="hover:text-[#9CAF88] transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-[#9CAF88] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Working Hours</h4>
+                    <ul class="space-y-2 text-white/70">
+                        <li>Mon - Sat: 8AM - 8PM</li>
+                        <li>Sunday: 9AM - 5PM</li>
+                        <li>Emergency services available</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-white/50 text-sm mb-4 md:mb-0">
+                    © 2024 Champaran Florals. All rights reserved.
+                </div>
+                <div class="flex space-x-6 text-white/50 text-sm">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white/80 hover:text-white">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Gallery Image" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animation
+        gsap.to(".hero-content", {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        gsap.to("#hero-stats", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            delay: 0.6
+        });
+
+        // Scroll reveal animations
+        gsap.utils.toArray(".reveal-section").forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Service cards stagger
+        gsap.from(".service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 70%"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+
+        // Gallery items stagger
+        gsap.from(".gallery-item", {
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "top 70%"
+            },
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.6,
+            stagger: 0.05,
+            ease: "power3.out"
+        });
+
+        // Navbar scroll behavior
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.remove('nav-hidden');
+                navbar.classList.add('nav-visible');
+            } else {
+                navbar.classList.add('nav-hidden');
+                navbar.classList.remove('nav-visible');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Service selection
+        function selectService(service) {
+            const select = document.getElementById('eventType');
+            const serviceMap = {
+                'wedding': 'wedding',
+                'artificial': 'other',
+                'bridal': 'other',
+                'corporate': 'corporate',
+                'birthday': 'birthday',
+                'religious': 'religious'
+            };
+            
+            if (serviceMap[service]) {
+                select.value = serviceMap[service];
+            }
+            
+            // Scroll to contact
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight the form
+            gsap.from("#bookingForm", {
+                scale: 1.02,
+                duration: 0.3,
+                yoyo: true,
+                repeat: 1
+            });
+        }
+
+        // Form handling
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const form = document.getElementById('bookingForm');
+            const successMsg = document.getElementById('successMessage');
+            
+            // Hide form, show success
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+            
+            // Re-render icons in success message
+            lucide.createIcons();
+            
+            // In a real implementation, you would send data to a server here
+            console.log('Form submitted');
+        }
+
+        function resetForm() {
+            const form = document.getElementById('bookingForm');
+            const successMsg = document.getElementById('successMessage');
+            
+            form.reset();
+            form.style.display = 'block';
+            successMsg.classList.add('hidden');
+        }
+
+        // Lightbox functionality
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = img.src;
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to floating leaves
+        document.addEventListener('mousemove', (e) => {
+            const leaves = document.querySelectorAll('.floating-leaf');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            leaves.forEach((leaf, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
+                
+                leaf.style.transform = `translate(${xOffset}px, ${yOffset}px) rotate(${xOffset}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
